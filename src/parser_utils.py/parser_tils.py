@@ -2,9 +2,7 @@ import csv
 import json
 import logging
 import xml.etree.ElementTree as ET
-
 import yaml
-
 
 def _unwrap(data):
     """If a file wraps its list in a single top-level key, return the list."""
@@ -13,8 +11,6 @@ def _unwrap(data):
         if isinstance(only, list):
             return only
     return data
-
-
 def parse_json(path):
     try:
         with open(path, "r", encoding="utf-8") as f:
@@ -26,8 +22,6 @@ def parse_json(path):
     except json.JSONDecodeError as e:
         logging.error(f"PARSE_JSON_ERROR: {e}")
     return []
-
-
 def parse_yaml(path):
     try:
         with open(path, "r", encoding="utf-8") as f:
@@ -39,8 +33,6 @@ def parse_yaml(path):
     except yaml.YAMLError as e:
         logging.error(f"PARSE_YAML_ERROR: {e}")
     return []
-
-
 def parse_xml(path):
     """Return a list of dicts, one per child element of the root.
     Each dict merges the element's attributes and its child tag/text pairs."""
@@ -50,7 +42,7 @@ def parse_xml(path):
         for elem in root:
             item = dict(elem.attrib)
             for child in elem:
-                item[child.tag] = (child.text or "").strip()
+                item[child.tag] = (child.text or "").strip( )
             items.append(item)
         logging.info("PARSE_XML_SUCCESS")
         return items
@@ -59,8 +51,6 @@ def parse_xml(path):
     except ET.ParseError as e:
         logging.error(f"PARSE_XML_ERROR: {e}")
     return []
-
-
 def parse_csv(path):
     try:
         with open(path, "r", encoding="utf-8", newline="") as f:
