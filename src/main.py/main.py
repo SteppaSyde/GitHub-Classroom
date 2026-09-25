@@ -1,13 +1,9 @@
 import logging
 import os
-
 from src.network_device import NetworkDevice
 from src.parser_utils import parse_csv, parse_json, parse_xml, parse_yaml
-
 os.makedirs("logs", exist_ok=True)
 logging.basicConfig(filename="logs/lab.log", level=logging.INFO)
-
-
 def main():
     devices = parse_json("data/devices.json")
     interfaces = parse_yaml("data/interfaces.yaml")
@@ -34,8 +30,6 @@ def main():
         msg = f"VLAN {v['id']} is the {v['name']}"
         print(msg)
         logging.info(f"VLAN_MSG: {msg}")
-
-
 if __name__ == "__main__":
     logging.info("[LAB1-START] LAB1_START")
     main()
